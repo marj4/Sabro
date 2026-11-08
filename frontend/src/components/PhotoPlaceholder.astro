@@ -11,9 +11,36 @@ interface Props {
 const { number, title, description, size, class: className, image, video } = Astro.props;
 ---
 <figure class:list={['photo', className, { 'photo--has-media': image || video }]} aria-label={`Место для фото: ${title}. ${description}`}>
-  {image && <img class="photo__media" src={image} alt={title} />}
-  {video && <video class="photo__media photo__video" autoplay muted loop playsinline preload="metadata" aria-label={title}><source src={video} type="video/mp4" /></video>}
+  {image && <img class="photo__media" src={image} alt={title} loading="lazy" decoding="async" />}
+  {video && <video class="photo__media photo__video" data-lazy-video muted loop playsinline preload="none" poster="/images/gallery/barber-work-poster.webp" aria-label={title}><source data-src={video} type="video/mp4" /></video>}
   <div class="photo__top" aria-hidden="true"><span>Фото / {number}</span><span>{size}</span></div>
   <svg class="photo__symbol" viewBox="0 0 64 64" fill="none" aria-hidden="true"><path d="M16 8H8v8m40-8h8v8M8 48v8h8m40-8v8h-8M22 32h20M32 22v20" stroke="currentColor" stroke-width="1"/></svg>
   <figcaption><strong>{title}</strong><span>{description}</span></figcaption>
 </figure>
+<script>
+  const videos = document.querySelectorAll<HTMLVideoElement>('[data-lazy-video]');
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const setupVideo = (video: HTMLVideoElement) => {
+    if (!video.dataset.loaded) {
+      video.querySelectorAll<HTMLSourceElement>('source[data-src]').forEach(source => {
+        source.src = source.dataset.src!;
+      });
+      video.dataset.loaded = 'true';
+      video.load();
+    }
+    if (reducedMotion) video.controls = true;
+    else video.play().catch(() => { video.controls = true; });
+  };
+  if ('IntersectionObserver' in window) {
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        const video = entry.target as HTMLVideoElement;
+        if (entry.isIntersecting) setupVideo(video);
+        else video.pause();
+      });
+    }, { rootMargin: '150px' });
+    videos.forEach(video => observer.observe(video));
+  } else {
+    videos.forEach(setupVideo);
+  }
+</script>
