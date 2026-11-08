@@ -4,4 +4,3 @@ dist/
 .env
 .cache/
 .media-originals/
-src/data/embedded-images.generated.ts

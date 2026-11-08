@@ -3,16 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "type": "module",
-  "scripts": {
-    "embed-images": "node scripts/generate-embedded-images.mjs",
-    "predev": "npm run embed-images",
-    "dev": "astro dev",
-    "prebuild": "npm run embed-images",
-    "build": "astro build",
-    "preview": "astro preview",
-    "precheck": "npm run embed-images",
-    "check": "astro check"
-  },
+  "scripts": { "dev": "astro dev", "build": "astro build", "preview": "astro preview", "check": "astro check" },
   "dependencies": { "astro": "^7.4.4", "tailwindcss": "^4.1.16", "@tailwindcss/vite": "^4.1.16" },
   "devDependencies": { "@astrojs/check": "^0.9.5", "typescript": "^5.9.3" }
 }

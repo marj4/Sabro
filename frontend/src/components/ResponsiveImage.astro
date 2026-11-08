@@ -1,10 +1,9 @@
 ---
 import variants from '../data/image-variants.json';
-import { embeddedImages } from '../data/embedded-images';
 interface Props { src: string; alt: string; class?: string; sizes?: string; loading?: 'eager' | 'lazy'; }
 const { src, alt, class: className, sizes = '(max-width: 700px) calc(100vw - 48px), 420px', loading = 'eager' } = Astro.props;
 const image = variants[src as keyof typeof variants];
-const fallback = image?.sources.at(-1)?.url ?? src;
-const embedded = embeddedImages[src];
+const sources = image?.sources.filter(source => source.width <= 640);
+const fallback = sources?.at(-1)?.url ?? src;
 ---
-<img class={className} src={embedded ?? fallback} srcset={embedded ? undefined : image?.sources.map(source => `${source.url} ${source.width}w`).join(', ')} sizes={embedded ? undefined : image ? sizes : undefined} width={image?.width} height={image?.height} alt={alt} loading={loading} decoding="async" />
+<img class={className} src={fallback} srcset={sources?.map(source => `${source.url} ${source.width}w`).join(', ')} sizes={sources ? sizes : undefined} width={image?.width} height={image?.height} alt={alt} loading={loading} decoding="async" />
