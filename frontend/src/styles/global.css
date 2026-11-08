@@ -128,7 +128,7 @@ h2 em { font-family: Georgia, 'Times New Roman', serif; font-weight: 400; letter
 .gallery__grid { display: grid; grid-template-columns: 1.3fr 1fr; gap: 24px; align-items: start; }
 .photo { margin: 0; position: relative; display: flex; flex-direction: column; justify-content: space-between; width: 100%; min-width: 0; min-height: 390px; padding: 24px; background: #bfbbae; color: #35362d; overflow: hidden; }
 .photo__media { position: absolute; z-index: 0; inset: 0; width: 100%; height: 100%; object-fit: cover; }
-.photo__video { object-fit: contain; background: transparent; }
+.photo__video { object-fit: cover; background: #171714; }
 .photo--has-media::after { position: absolute; z-index: 0; inset: 0; background: linear-gradient(180deg, #1717141c 25%, #171714cc 100%); content: ''; pointer-events: none; }
 .photo--has-media .photo__top, .photo--has-media figcaption { position: relative; z-index: 1; color: var(--paper); }
 .photo::before { content: ''; position: absolute; inset: 16px; border: 1px solid #35362d26; pointer-events: none; }
@@ -139,7 +139,7 @@ h2 em { font-family: Georgia, 'Times New Roman', serif; font-weight: 400; letter
 .photo figcaption span { display: block; font-size: 12px; line-height: 1.6; }
 .photo--room { aspect-ratio: 4/3; width: 100%; margin-top: 0; background: #c7c2b5; }
 .photo--detail { aspect-ratio: 4/5; margin-top: 100px; background: #a5a694; }
-.photo--work { aspect-ratio: 9/16; width: 78%; margin-top: -90px; background: #b7a396; }
+.photo--work { aspect-ratio: 9/16; width: 78%; margin-top: -90px; background: #171714 url('/images/gallery/barber-work-poster.webp') center / cover no-repeat; }
 .photo--result { aspect-ratio: 4/3; margin-top: 0; background: #c9c4b9; }
 .gallery__footer { display: flex; justify-content: space-between; align-items: center; gap: 24px; margin-top: 36px; }
 .contacts__layout { display: grid; grid-template-columns: 1fr 1fr; gap: 8vw; }
