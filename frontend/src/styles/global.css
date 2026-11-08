@@ -139,7 +139,7 @@ h2 em { font-family: Georgia, 'Times New Roman', serif; font-weight: 400; letter
 .photo figcaption span { display: block; font-size: 12px; line-height: 1.6; }
 .photo--room { aspect-ratio: 4/3; width: 100%; margin-top: 0; background: #c7c2b5; }
 .photo--detail { aspect-ratio: 4/5; margin-top: 100px; background: #a5a694; }
-.photo--work { aspect-ratio: 9/16; width: 78%; margin-top: -90px; background: #171714 url('/images/gallery/barber-work-poster.webp') center / cover no-repeat; }
+.photo--work { aspect-ratio: 9/16; width: 78%; margin-top: -90px; background: #171714; }
 .photo--result { aspect-ratio: 4/3; margin-top: 0; background: #c9c4b9; }
 .gallery__footer { display: flex; justify-content: space-between; align-items: center; gap: 24px; margin-top: 36px; }
 .contacts__layout { display: grid; grid-template-columns: 1fr 1fr; gap: 8vw; }

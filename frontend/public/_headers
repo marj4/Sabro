@@ -1,3 +1,7 @@
+/
+  Cache-Control: public, max-age=300, stale-while-revalidate=86400
+/index.html
+  Cache-Control: public, max-age=300, stale-while-revalidate=86400
 /images/*
   Cache-Control: public, max-age=86400, stale-while-revalidate=604800
 /videos/*

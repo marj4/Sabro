@@ -1,5 +1,6 @@
 ---
 import ResponsiveImage from './ResponsiveImage.astro';
+import { embeddedImages } from '../data/embedded-images';
 interface Props {
   number: string;
   title: string;
@@ -13,7 +14,7 @@ const { number, title, description, size, class: className, image, video } = Ast
 ---
 <figure class:list={['photo', className, { 'photo--has-media': image || video }]} aria-label={`Место для фото: ${title}. ${description}`}>
   {image && <ResponsiveImage class="photo__media" src={image} alt={title} />}
-  {video && <video class="photo__media photo__video" data-lazy-video src={video} poster="/images/gallery/barber-work-poster.webp" muted loop playsinline preload="none" aria-label={title}></video>}
+  {video && <video class="photo__media photo__video" data-lazy-video src={video} poster={embeddedImages['/images/gallery/barber-work-poster.webp']} muted loop playsinline preload="none" aria-label={title}></video>}
   <div class="photo__top" aria-hidden="true"><span>Фото / {number}</span><span>{size}</span></div>
   <svg class="photo__symbol" viewBox="0 0 64 64" fill="none" aria-hidden="true"><path d="M16 8H8v8m40-8h8v8M8 48v8h8m40-8v8h-8M22 32h20M32 22v20" stroke="currentColor" stroke-width="1"/></svg>
   <figcaption><strong>{title}</strong><span>{description}</span></figcaption>
