@@ -1,0 +1,101 @@
+:root {
+  --btn-bg: #f3efe4;
+  --btn-bg-hover: #e6e0d0;
+  --btn-text: #1e1e1a;
+  --btn-book-scale: 1.05;
+  --btn-book-duration: 300ms;
+  --btn-book-arrow-offset: 8px;
+  --btn-book-text-offset: 10px;
+  --btn-book-ease: cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.btn-book {
+  position: relative;
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  min-height: 60px;
+  max-width: 100%;
+  padding: 16px 40px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--btn-bg);
+  color: var(--btn-text);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+  font: 500 16px/1.4 Arial, Helvetica, sans-serif;
+  text-align: center;
+  text-transform: none;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 250ms ease, transform 250ms ease;
+}
+
+/* Fade a separate shadow layer instead of animating box-shadow. */
+.btn-book::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  box-shadow: 0 12px 28px #0005;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--btn-book-duration) var(--btn-book-ease);
+}
+
+.btn-book__text {
+  position: relative;
+  transition: transform var(--btn-book-duration) var(--btn-book-ease);
+}
+.btn-book__text::after {
+  position: absolute;
+  right: 0;
+  bottom: -4px;
+  left: 0;
+  height: 2px;
+  background: currentColor;
+  content: '';
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--hover-duration, 300ms) var(--hover-ease, cubic-bezier(.65, 0, .35, 1));
+}
+
+.btn-book__arrow {
+  position: absolute;
+  right: 18px;
+  opacity: 0;
+  transform: translateX(calc(-1 * var(--btn-book-arrow-offset)));
+  transition: opacity var(--btn-book-duration) var(--btn-book-ease),
+    transform var(--btn-book-duration) var(--btn-book-ease);
+}
+
+.btn-book:focus-visible {
+  outline: 2px solid #c8a15a;
+  outline-offset: 2px;
+  transform: translateY(-2px);
+}
+.btn-book:focus-visible::before,
+.btn-book:focus-visible .btn-book__arrow { opacity: 1; }
+.btn-book:focus-visible .btn-book__arrow { transform: translateX(0); }
+.btn-book:focus-visible .btn-book__text { transform: translateX(calc(-1 * var(--btn-book-text-offset))); }
+.btn-book:focus-visible .btn-book__text::after { transform: scaleX(1); }
+
+@media (hover: hover) and (pointer: fine) {
+  .btn-book:hover { color: var(--btn-text); background: var(--btn-bg-hover); transform: translateY(-2px); }
+  .btn-book:hover::before, .btn-book:hover .btn-book__arrow { opacity: 1; }
+  .btn-book:hover .btn-book__arrow { transform: translateX(0); }
+  .btn-book:hover .btn-book__text { transform: translateX(calc(-1 * var(--btn-book-text-offset))); }
+  .btn-book:hover .btn-book__text::after { transform: scaleX(1); }
+}
+
+.btn-book:active { transform: translateY(0); }
+
+@media (prefers-reduced-motion: reduce) {
+  .btn-book, .btn-book__text { transition: none; }
+  .btn-book__arrow { transition: opacity var(--btn-book-duration) ease; }
+  .btn-book__text::after { transition: none; }
+  .btn-book, .btn-book:hover, .btn-book:focus-visible, .btn-book:active,
+  .btn-book .btn-book__text, .btn-book .btn-book__arrow,
+  .btn-book:is(:hover, :focus-visible) .btn-book__text,
+  .btn-book:is(:hover, :focus-visible) .btn-book__arrow { transform: none; }
+}

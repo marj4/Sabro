@@ -1,0 +1,42 @@
+---
+import BookButton from './BookButton.astro';
+const links = [
+  { href: '#about', label: 'О нас' },
+  { href: '#gallery', label: 'Галерея' },
+  { href: '#contacts', label: 'Контакты' },
+  { href: '#reviews', label: 'Отзывы' },
+];
+---
+<header class="header">
+  <nav class="header__left" aria-label="О барбершопе">{links.slice(0, 2).map((link, index) => <a class="menu-link header__menu-item intro-header-item" style={`--i:${index}`} href={link.href}>{link.label}</a>)}</nav>
+  <a href="#top" class="logo intro-header-item" style="--i:0" aria-label="Sabr — наверх">SABR</a>
+  <nav class="header__right" aria-label="Контакты и запись">{links.slice(2).map((link, index) => <a class="menu-link header__menu-item intro-header-item" style={`--i:${index + 2}`} href={link.href}>{link.label}</a>)}<span class="header__book-reveal header__menu-item intro-header-item" style="--i:4"><BookButton href="https://wa.me/79894511717" label="Записаться" /></span></nav>
+  <details class="mobile-nav intro-header-item" style="--i:1">
+    <summary>Меню <span aria-hidden="true">+</span></summary>
+    <nav aria-label="Мобильная навигация">{links.map(link => <a class="menu-link" href={link.href}>{link.label}</a>)}<a href="https://wa.me/79894511717" target="_blank" rel="noopener noreferrer">Записаться ↗</a></nav>
+  </details>
+</header>
+<script>
+  document.querySelectorAll<HTMLElement>('.menu-link').forEach(link => {
+    const setOrigin = (event: MouseEvent) => {
+      const rect = link.getBoundingClientRect();
+      link.style.setProperty('--underline-origin', event.clientX < rect.left + rect.width / 2 ? 'left' : 'right');
+    };
+
+    link.addEventListener('mouseenter', setOrigin);
+    link.addEventListener('mouseleave', setOrigin);
+  });
+
+  document.querySelectorAll<HTMLDetailsElement>('.mobile-nav').forEach(menu => {
+    menu.querySelectorAll('a').forEach(link => link.addEventListener('click', () => { menu.open = false; }));
+    menu.addEventListener('keydown', event => {
+      if (event.key === 'Escape' && menu.open) {
+        menu.open = false;
+        menu.querySelector('summary')?.focus();
+      }
+    });
+    document.addEventListener('click', event => {
+      if (event.target instanceof Node && !menu.contains(event.target)) menu.open = false;
+    });
+  });
+</script>
