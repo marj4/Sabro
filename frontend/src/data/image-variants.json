@@ -1,0 +1,70 @@
+{
+  "/images/barber/master-02.webp": {
+    "width": 496,
+    "height": 588,
+    "sources": [
+      {
+        "width": 320,
+        "url": "/images/barber/master-02-w320.webp"
+      },
+      {
+        "width": 496,
+        "url": "/images/barber/master-02-w496.webp"
+      }
+    ]
+  },
+  "/images/barber/master-03.webp": {
+    "width": 843,
+    "height": 564,
+    "sources": [
+      {
+        "width": 320,
+        "url": "/images/barber/master-03-w320.webp"
+      },
+      {
+        "width": 640,
+        "url": "/images/barber/master-03-w640.webp"
+      },
+      {
+        "width": 843,
+        "url": "/images/barber/master-03-w843.webp"
+      }
+    ]
+  },
+  "/images/gallery/finished-look.webp": {
+    "width": 1080,
+    "height": 1444,
+    "sources": [
+      {
+        "width": 320,
+        "url": "/images/gallery/finished-look-w320.webp"
+      },
+      {
+        "width": 640,
+        "url": "/images/gallery/finished-look-w640.webp"
+      },
+      {
+        "width": 960,
+        "url": "/images/gallery/finished-look-w960.webp"
+      }
+    ]
+  },
+  "/images/gallery/tools.webp": {
+    "width": 960,
+    "height": 1280,
+    "sources": [
+      {
+        "width": 320,
+        "url": "/images/gallery/tools-w320.webp"
+      },
+      {
+        "width": 640,
+        "url": "/images/gallery/tools-w640.webp"
+      },
+      {
+        "width": 960,
+        "url": "/images/gallery/tools-w960.webp"
+      }
+    ]
+  }
+}

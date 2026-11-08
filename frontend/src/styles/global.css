@@ -16,9 +16,9 @@
   --intro-title-duration: 600ms;
   --intro-content-duration: 600ms;
   --intro-glow-duration: 1200ms;
-  --intro-title-delay: 1450ms;
-  --intro-content-delay: 1950ms;
-  --intro-header-after-logo: 600ms;
+  --intro-title-delay: 120ms;
+  --intro-content-delay: 260ms;
+  --intro-header-after-logo: 120ms;
   --intro-header-stagger: 0ms;
   --intro-content-stagger: 120ms;
   --intro-ease: cubic-bezier(0.23, 1, 0.32, 1);

@@ -3,6 +3,8 @@ import Header from '../components/Header.astro';
 import BookButton from '../components/BookButton.astro';
 import PhotoPlaceholder from '../components/PhotoPlaceholder.astro';
 import '../styles/global.css';
+import '../../public/map.css';
+import ResponsiveImage from '../components/ResponsiveImage.astro';
 
 const maps = 'https://yandex.ru/maps/org/sabr/162425003228/';
 const whatsapp = 'https://wa.me/79894511717';
@@ -35,7 +37,6 @@ const services = [
 <!doctype html>
 <html lang="ru">
   <head>
-    <script is:inline>document.documentElement.classList.add('js');</script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Sabr — барбершоп в Махачкале</title>
@@ -45,7 +46,6 @@ const services = [
     <meta property="og:description" content="Стрижка. Детали. Твой характер. Ежедневно 10:00–20:00, просп. Али-Гаджи Акушинского, 301." />
     <meta property="og:type" content="website" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-    <link rel="stylesheet" href="/map.css" />
   </head>
   <body>
     <a class="skip-link" href="#main">К содержанию</a>
@@ -70,8 +70,8 @@ const services = [
         <div class="section-label"><span>01 / Знакомство</span><span>Махачкала, Дагестан</span></div>
         <div class="about__layout">
           <div class="about__visual">
-            <figure class="about__portrait about__portrait--main"><img src="/images/barber/master-02.webp" alt="Барбер Sabr во время работы с клиентом" loading="lazy" decoding="async" width="496" height="588" /></figure>
-            <figure class="about__portrait about__portrait--small"><img src="/images/barber/master-03.webp" alt="Барбер Sabr выполняет стрижку ножницами" loading="lazy" decoding="async" width="843" height="564" /></figure>
+            <figure class="about__portrait about__portrait--main"><ResponsiveImage src="/images/barber/master-02.webp" alt="Барбер Sabr во время работы с клиентом" sizes="(max-width: 700px) 72vw, 36vw" /></figure>
+            <figure class="about__portrait about__portrait--small"><ResponsiveImage src="/images/barber/master-03.webp" alt="Барбер Sabr выполняет стрижку ножницами" sizes="(max-width: 700px) 40vw, 20vw" /></figure>
           </div>
           <div class="about__copy">
             <h2 id="about-title">Меня зовут<br /><em>[имя]</em></h2>
@@ -104,35 +104,5 @@ const services = [
       </section>
     </main>
     <footer class="footer shell"><div class="footer__top"><a href="#top" class="logo" aria-label="Sabr — наверх">SABR</a><p>Твой барбершоп. Твой характер.</p><a href="#top" class="text-link interactive-line">Наверх ↑</a></div><div class="footer__bottom"><span>© {new Date().getFullYear()} Sabr</span><span>Махачкала / 10:00–20:00</span><a class="interactive-line" href="tel:+79894511717">+7 (989) 451-17-17</a></div></footer>
-    <script is:inline>
-      (() => {
-        const root = document.documentElement;
-        let pageLoaded = document.readyState !== 'loading';
-        let fontsLoaded = !document.fonts;
-        let finished = false;
-
-        const showPage = () => {
-          if (finished || !pageLoaded || !fontsLoaded) return;
-          finished = true;
-          requestAnimationFrame(() => root.classList.add('is-ready'));
-        };
-
-        if (!pageLoaded) {
-          document.addEventListener('DOMContentLoaded', () => { pageLoaded = true; showPage(); }, { once: true });
-        }
-
-        if (document.fonts) {
-          document.fonts.ready.finally(() => { fontsLoaded = true; showPage(); });
-        }
-
-        window.setTimeout(() => {
-          if (finished) return;
-          finished = true;
-          root.classList.add('is-ready');
-        }, 2000);
-
-        showPage();
-      })();
-    </script>
   </body>
 </html>

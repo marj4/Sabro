@@ -1,4 +1,5 @@
 ---
+import ResponsiveImage from './ResponsiveImage.astro';
 interface Props {
   number: string;
   title: string;
@@ -11,8 +12,8 @@ interface Props {
 const { number, title, description, size, class: className, image, video } = Astro.props;
 ---
 <figure class:list={['photo', className, { 'photo--has-media': image || video }]} aria-label={`Место для фото: ${title}. ${description}`}>
-  {image && <img class="photo__media" src={image} alt={title} loading="lazy" decoding="async" />}
-  {video && <video class="photo__media photo__video" data-lazy-video muted loop playsinline preload="none" poster="/images/gallery/barber-work-poster.webp" aria-label={title}><source data-src={video} type="video/mp4" /></video>}
+  {image && <ResponsiveImage class="photo__media" src={image} alt={title} />}
+  {video && <video class="photo__media photo__video" data-lazy-video data-poster="/images/gallery/barber-work-poster.webp" muted loop playsinline preload="none" aria-label={title}><source data-src={video} type="video/mp4" /></video>}
   <div class="photo__top" aria-hidden="true"><span>Фото / {number}</span><span>{size}</span></div>
   <svg class="photo__symbol" viewBox="0 0 64 64" fill="none" aria-hidden="true"><path d="M16 8H8v8m40-8h8v8M8 48v8h8m40-8v8h-8M22 32h20M32 22v20" stroke="currentColor" stroke-width="1"/></svg>
   <figcaption><strong>{title}</strong><span>{description}</span></figcaption>
@@ -20,15 +21,18 @@ const { number, title, description, size, class: className, image, video } = Ast
 <script>
   const videos = document.querySelectorAll<HTMLVideoElement>('[data-lazy-video]');
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const connection = (navigator as Navigator & { connection?: { saveData?: boolean; effectiveType?: string } }).connection;
+  const manualPlayback = reducedMotion || connection?.saveData || /(^|-)2g$/.test(connection?.effectiveType ?? '');
   const setupVideo = (video: HTMLVideoElement) => {
+    if (!video.poster) video.poster = video.dataset.poster!;
     if (!video.dataset.loaded) {
       video.querySelectorAll<HTMLSourceElement>('source[data-src]').forEach(source => {
         source.src = source.dataset.src!;
       });
       video.dataset.loaded = 'true';
-      video.load();
+      if (!manualPlayback) video.load();
     }
-    if (reducedMotion) video.controls = true;
+    if (manualPlayback) video.controls = true;
     else video.play().catch(() => { video.controls = true; });
   };
   if ('IntersectionObserver' in window) {
@@ -43,4 +47,7 @@ const { number, title, description, size, class: className, image, video } = Ast
   } else {
     videos.forEach(setupVideo);
   }
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) videos.forEach(video => video.pause());
+  });
 </script>
